@@ -8,7 +8,7 @@ import os
 import smtplib
 import pyjokes
 import pywhatkit
-
+from datetime import date
 name = 'tania'
 
 engine = pyttsx3.init('sapi5')
@@ -27,7 +27,7 @@ def greet():
         speak("good afternoon" + name)
     else:
         speak("good evening" + name)
-    speak("How may I help you")
+    speak("Tell me what can I do for you")
 
 def takeCommand():
     r = sr.Recognizer()
@@ -51,8 +51,8 @@ def sendEmail(to,content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()                        #extended helo(Ext simple mail transfer protocol)
     server.starttls()                       # an email protocol command that tells an email server that an email client, including an email client running in a web browser, wants to turn an existing insecure connection into a secure one.
-    server.login('taniaayaz24@gmail.com', '24sep2000')
-    server.sendmail('taniaayaz24@gmail.com', to, content)
+    server.login('taniaayaz4@gmail.com', 'Safrestaurant123')
+    server.sendmail('taniaayaz4@gmail.com', to, content)
     server.close()
 
 chrome_path = "C:/Program Files/Google/Chrome/Application/chrome.exe %s"
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     while True:
         query = takeCommand().lower()
         if 'wikipedia' in query:
-            speak("searching")
+            speak("Searching")
             query = query.replace("wikipedia", "")
             results = wikipedia.summary(query, sentences=3)
             speak("According to wikipedia")
@@ -72,12 +72,20 @@ if __name__ == "__main__":
 
         elif 'open google' in query:
             webbrowser.get(chrome_path).open('google.com')
+
         elif 'open facebook' in query:
             webbrowser.get(chrome_path).open('facebook.com')
+
+        elif 'open instagram' in query:
+            webbrowser.get(chrome_path).open('instagram.com')
 
         elif 'the time' in query:
             now_time = datetime.datetime.now().strftime('%I:%M %p')
             speak(f"Its {now_time}")
+
+        elif 'the date' in query:
+            now_date = date.today().strftime("%B %d, %Y")
+            speak(f"Its {now_date}")
 
         elif 'open vs code' in query:
             vs_code_path = "C:\\Users\\Tania Ayaz\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
@@ -93,9 +101,9 @@ if __name__ == "__main__":
                 content = takeCommand()
                 speak("To whom you want to send email")
                 to = takeCommand()
-                if to == 'Tuba' and to == 'Tuba':
+                if to == 'Aasir' and to == 'Aasir':
 
-                    sendEmail("toobaayaz96@gmail.com", content)
+                    sendEmail("aasirrafi99@gmail.com", content)
                     speak("Email sent successfully")
             except Exception as e:
                 print(e)
@@ -104,9 +112,9 @@ if __name__ == "__main__":
         elif 'joke' in query:
             speak(pyjokes.get_joke())
 
-        elif 'play' in query:
+        elif 'play song' in query:
             song = query.replace('play','')
-            speak('playing' + song)
+            speak('Playing' + song)
             pywhatkit.playonyt(song)
 
 
